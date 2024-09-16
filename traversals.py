@@ -33,9 +33,8 @@ def row_major_traversal(grid):
         # Iterate through each row to keep track of columns
         for col in range(col_count):
             final_list.append((row,col))
-
-
     return final_list
+
 
 # Iterates over a 2D list from left to right, then top to bottom
 # and returning the coordinates (row, column).
@@ -53,6 +52,8 @@ def column_major_traversal(grid):
             final_list.append((row, col))
 
     return final_list
+
+
 
 # Iterates over a 2D list from top to bottom then left to right
 # and returning the coordinates (row, column).
@@ -74,8 +75,8 @@ def row_zigzag_traversal(grid):
             for col in range(col_count):
                 final_list.append((row, col))
 
-
     return final_list
+
 
 # Iterates over a 2D list by alternating between iterating
 # left to right and right to left, going from top to bottom
@@ -98,9 +99,7 @@ def column_zigzag_traversal(grid):
             for row in range(row_count):
                 final_list.append((row, col))
 
-
     return final_list
-
 
 
 # Iterates over a 2D list from the top-right to the bottom-left
@@ -142,7 +141,6 @@ def main_diagonal_traversal(grid):
     return final_list
 
 
-
 # Iterates over a 2D list from the top-left to the bottom-right
 # in the direction of the secondary diagonal and returning the
 # coordinates (row, column).
@@ -159,15 +157,49 @@ def secondary_diagonal_traversal(grid):
         col = column
         row = 0
         
-        while column >= 0 and row 
+        while column >= 0 and row:
 
-
-    
-    
     return final_list
 
 
 # Iterates over a 2D list in spiral order and returning the
 # coordinates (row, column).
 def spiral_traversal(grid):
-    return []
+    row_count = len(grid)
+    col_count = len(grid[0])
+    #top, bottom, left, and right defined to keep track of the boundaries of the grid 
+    #and to make sure the spiral does not overlap itself 
+    top = 0
+    bottom = row_count - 1
+    left = 0
+    right = col_count - 1
+
+    if len(grid) > 10:
+        print("Matrix larger than 10")
+
+    final_list = []
+    # iterate from left to right along the top of the grid
+    while top <= bottom and left <= right:
+        for col in range(left, right + 1):
+            final_list.append((top, col))
+        top += 1
+
+        # iterate from top to bottom along the right side of the grid
+        for row in range(top, bottom + 1):
+            final_list.append((row, right))
+        right -= 1
+
+        if top <= bottom:
+            # iterate from right to left along the bottom of the grid
+            for col in range(right, left - 1, -1):
+                final_list.append((bottom, col))
+            bottom -= 1
+
+        if left <= right:
+            # iterate from bottom to top along the left side of the grid
+            for row in range(bottom, top - 1, -1):
+                final_list.append((row, left))
+            left += 1
+
+    return final_list
+
